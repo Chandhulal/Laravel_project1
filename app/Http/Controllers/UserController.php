@@ -27,7 +27,7 @@ class UserController extends Controller
     {
         $user = ['email' => request()->user_email, 'password' => request()->user_password];
         if (Auth::attempt($user, true)) {
-            return view('templates.course_home');
+            return redirect('/course_home');
         } else {
             return redirect('/')->withErrors('This user doesnt Exist');
         }
@@ -60,7 +60,8 @@ class UserController extends Controller
             'password' => request()->password,
         ]);
 
-        Mail::to($user->email)->send(new UserMail($user->name));
+        //email to user
+        // Mail::to($user->email)->send(new UserMail($user->name));
 
         if (request()->roles) {
             $user->syncRoles(request()->roles);

@@ -11,10 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('statuses', function (Blueprint $table) {
-            $table->id();
-            $table->string('status');          
-            $table->timestamps();
+        Schema::table('comments', function (Blueprint $table) {
+            $table->integer('parent_id')->nullable()->change();
         });
     }
 
@@ -23,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('statuses');
+        Schema::table('comments', function (Blueprint $table) {
+            $table->integer('parent_id')->nullable()->change();
+        });
     }
 };

@@ -35,7 +35,24 @@
             //add modal=================================================================================
             $(document).on('click', '#add_course', function(event) {
                 event.preventDefault();
-                $('#add_modal').show();
+                $.ajax({
+                    url: '/show_course_modal',
+                    type: 'get',
+
+                    success: function(response) {
+                        if (response) {
+                            $('.active-status').remove();
+                            response[0].forEach(status => {
+                                $('#active-status').append(
+                                    `<span class="active-status mx-2"><input type="radio" name="status" class="info_status" value=`+status.id+`>`+status.status+`</span>`
+                                )
+                            });
+                            $('#add_modal').show();
+                        } else {
+                            return false;
+                        }
+                    },
+                });
             });
 
             //add form request=================================================================================
@@ -816,7 +833,7 @@
                     contentType: false,
                     success: function(response) {
                         if (response) {
-                            
+
                             console.log(response);
                             const userRole = @json(auth()->user()->getAllPermissions()->pluck('name'));
                             let canedit = false;
@@ -830,7 +847,7 @@
                             }
                             $('#body').empty();
                             response[0].forEach(array => {
-                                
+
                                 $('#body').append([
                                     arrayFunction(array, canedit, candelete)
                                 ]);
@@ -856,16 +873,16 @@
                             <td>` + array.semester + `</td>                                   
                             ${array.status_id == 1 ?                             
                                 `<td style="color: green;">
-                                                                    <div class="d-flex align-items-center justify-content-center">
-                                                                        <span class="glyphicon glyphicon-ok green-circle mx-2"></span>
-                                                                        active
-                                                                    </div>
-                                                                </td>` : `<td style="color: red;">
-                                                                    <div class="d-flex align-items-center justify-content-center">
-                                                                        <span class="glyphicon glyphicon-remove red-circle mx-2"></span>
-                                                                        inactive
-                                                                    </div>
-                                                                </td>`}           
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <span class="glyphicon glyphicon-ok green-circle mx-2"></span>
+                                            active
+                                        </div>
+                                    </td>` : `<td style="color: red;">
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <span class="glyphicon glyphicon-remove red-circle mx-2"></span>
+                                            inactive
+                                        </div>
+                                    </td>`}           
                             ${canedit || candelete ? '<td>':''}
                                 <div class="d-flex align-items-center justify-content-center">
                                     ${canedit ? '<button class="edit btn btn-warning mx-1" style="width:100%">Edit</button>' : ''}

@@ -9,7 +9,7 @@
                         <label for="course_name">Course Name</label>
                         <input class="info" type="text" name="course_name" id="course_names"
                             value="{{ old('course_name') }}" required>
-                  </div>
+                    </div>
                 </div>
                 <span id="course_name_error" style="color: rgb(216, 26, 26)"></span>
                 <br>
@@ -34,17 +34,16 @@
                 <div class="content">
                     <div clss="form-input">
                         <label for="status">Status</label>
-                        <label>
-                            <input type="radio" name="status" value="1"> Active
-                            <input type="radio" name="status" value="2"> Non-Active
-                          </label>
+                        <label id="active-status">
+
+                        </label>
                     </div>
                 </div>
                 <span id="status_error" style="color: rgb(216, 26, 26)"></span>
                 <br>
                 <div class="d-flex justify-content-center align-items-center">
-                    <button type="button" class="close_modal btn btn-warning shadow-lg mx-2"
-                        style="width:100%" data-dismiss="modal">Close</button>
+                    <button type="button" class="close_modal btn btn-warning shadow-lg mx-2" style="width:100%"
+                        data-dismiss="modal">Close</button>
                     <button type="submit" class="btn bg-primary shadow-lg mx-2" style="width:100%">Save
                         course</button>
                 </div>

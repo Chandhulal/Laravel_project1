@@ -48,6 +48,7 @@ class CourseController extends Controller
                 "course_id" => request()->course_id,
                 "semester" => request()->semester,
                 "status_id" => request()->status,
+                
             ]);
             $data = Course::find($users->id);
             $status = $data->status->status;
@@ -183,5 +184,13 @@ class CourseController extends Controller
     public function export_exel()
     {
         return Excel::download(new UsersExport, 'course.xlsx');
+    }
+
+    public function show_course_modal()
+    {
+        $status = Status::all();
+        return response()->json([
+            $status,
+        ]);
     }
 }

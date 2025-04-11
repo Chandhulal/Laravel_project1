@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
@@ -10,9 +11,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('user.user_registration');
-});
-Route::get('/course_home', function () {
-    return view('templates.course_home');
 });
 Route::post('/user_registration', [UserController::class, 'store']);
 Route::post('/login_authentication', [UserController::class, 'login_authentication']);
@@ -41,6 +39,10 @@ Route::group(['middleware' => ['userLogin']], function () {
     Route::delete('/delete_faq_mail/{id}', [SupportController::class, 'destroy']);
     Route::post('/import_exel', [CourseController::class, 'import_exel']);
     Route::get('/export_exel', [CourseController::class, 'export_exel']);
+    Route::get('/show_course_modal', [CourseController::class, 'show_course_modal']);
+    Route::post('/add_comment', [CommentController::class, 'create']);
+    Route::get('/course_home', [CommentController::class, 'course_home']);
+    Route::post('/add_replay/{id}', [CommentController::class, 'add_replay']);
 
     Route::get('/logout', [UserController::class, 'logout']);
 });
